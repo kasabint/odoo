@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_branch_form_inherit_departments" model="ir.ui.view">
+            <field name="name">res.branch.form.inherit.departments</field>
+            <field name="model">res.branch</field>
+            <field name="inherit_id" ref="multi_branch_base.view_branch_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="after">
+                    <group>
+                        <group>
+                            <field name="branch_department_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
