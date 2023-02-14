@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_form_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit.departments</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='id']" position="after">
+                    <field name="user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"/>
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" required="1"/>
+                    <field name="payment_term_id" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}" options="{'no_create': True}" required="1"/>
+                    <field name="branch_id" options="{'no_create': True}" domain="[('company_id', '=', company_id), ('id', 'in', allowed_branch_ids)]" required="1"/>
+                    <field name="allowed_branch_ids" invisible="1"/>
+                    <field name="branch_department_ids" invisible="1"/>
+                    <field name="branch_department_id" options="{'no_create': True}" domain="[('id', 'in', branch_department_ids)]" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="purchase_order_kpis_tree_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">purchase.order.tree.inherit.departments</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="branch_id" options="{'no_create': True}" domain="[('company_id', '=', company_id), ('id', 'in', allowed_branch_ids)]" required="1"/>
+                    <field name="allowed_branch_ids" invisible="1"/>
+                    <field name="branch_department_ids" invisible="1"/>
+                    <field name="branch_department_id" options="{'no_create': True}" domain="[('id', 'in', branch_department_ids)]" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_purchase_order_form_inherit_departments" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit.departments</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="multi_branch_base.view_purchase_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='branch_id']" position="replace"/>
+            </field>
+        </record>
+    </data>
+</odoo>
