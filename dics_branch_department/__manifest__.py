@@ -2,7 +2,7 @@
 
 {
     'name': 'Dics Branch Department',
-    'version': '16.0.0',
+    'version': '16.1.0',
     'summary': "Branch Departments",
     'description': """
         Add Departments for the branches
