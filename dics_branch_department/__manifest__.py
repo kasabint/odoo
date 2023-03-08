@@ -14,12 +14,15 @@
     'category' : "Tools",
     'depends': [
         'multi_branch_base',
+        'purchase',
+        'hr_expense',
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/branch_view.xml',
         'views/res_branch__department_views.xml',
         'views/purchase_view.xml',
+        'views/expense_view.xml',
     ],
 
     'installable': True,

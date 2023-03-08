@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_expense_view_form_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">hr.expense.form.inherit.branch</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_distribution']/.." position="inside">
+                    <field name="branch_id"/>
+                    <field name="allowed_branch_ids" invisible="1"/>
+                    <field name="branch_department_ids" invisible="1"/>
+                    <field name="branch_department_id" options="{'no_create': True}" domain="[('id', 'in', branch_department_ids)]" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_expense_view_expenses_analysis_tree_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">hr.expense.tree.inherit.branch</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_expenses_analysis_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='unit_amount_display']" position="after">
+                    <field name="branch_id"/>
+                    <field name="branch_department_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
