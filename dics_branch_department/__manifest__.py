@@ -23,6 +23,7 @@
         'views/res_branch__department_views.xml',
         'views/purchase_view.xml',
         'views/expense_view.xml',
+        'views/expense_sheet_view.xml',
     ],
 
     'installable': True,

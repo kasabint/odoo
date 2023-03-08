@@ -4,8 +4,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
-class Expense(models.Model):
-    _inherit = 'hr.expense'
+class ExpenseSheet(models.Model):
+    _inherit = 'hr.expense.sheet'
 
     allowed_branch_ids = fields.Many2many('res.branch', store=True,
                                           string="Allowed Branches",
@@ -50,17 +50,4 @@ class Expense(models.Model):
     def _compute_branch_department_ids(self):
         for rec in self:
             rec.branch_department_ids = rec.branch_id.branch_department_ids
-    
-    def _get_default_expense_sheet_values(self):
-        branch_ids = self.mapped('branch_id')
-        branch_department_ids = self.mapped('branch_department_id')
-        if len(branch_ids) > 1 or len(branch_department_ids) > 1:
-            raise UserError(_("Branch or Department is not same on selected expenses"))
-        values = super(Expense, self)._get_default_expense_sheet_values()
-        for vals in values:
-            vals.update({
-                'branch_id': self[0].branch_id.id,
-                'branch_department_id': self[0].branch_department_id.id,
-            })
-        return values
 

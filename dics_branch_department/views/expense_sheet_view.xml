@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_expense_sheet_form_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.form.inherit.branch</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                    <field name="allowed_branch_ids" invisible="1"/>
+                    <field name="branch_department_ids" invisible="1"/>
+                    <field name="branch_department_id" options="{'no_create': True}" domain="[('id', 'in', branch_department_ids)]" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='expense_line_ids']" position="attributes">
+                    <attribute name="domain">[('state', '=', 'draft'), ('employee_id', '=', employee_id), ('company_id', '=', company_id), ('branch_id', '=', branch_id), ('branch_department_id', '=', branch_department_id)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_expense_sheet_tree_tree_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.tree.inherit.branch</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_ids']" position="before">
+                    <field name="branch_id"/>
+                    <field name="branch_department_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
