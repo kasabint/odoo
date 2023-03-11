@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_expense_view_form_inherit_extends_values" model="ir.ui.view">
+            <field name="name">hr.expense.form.inherit.branch</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]/label" position="before">
+                    <label for="voucher_number" class="oe_edit_only"/>
+                    <h1>
+                        <field name="voucher_number"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//field[@name='analytic_distribution']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_expense_view_expenses_analysis_tree_inherit_branch_departments" model="ir.ui.view">
+            <field name="name">hr.expense.tree.inherit.branch</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_expenses_analysis_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="voucher_number"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

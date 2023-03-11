@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_expense_sheet_form_inherit_extends_values" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.form.inherit.extends_values</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]/label" position="before">
+                    <label for="voucher_number" class="oe_edit_only"/>
+                    <h1>
+                        <field name="voucher_number"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//field[@name='expense_line_ids']//field[@name='date']" position="after">
+                    <field name="voucher_number"/>
+                </xpath>
+                <xpath expr="//field[@name='expense_line_ids']//field[@name='total_amount']" position="after">
+                    <field name="approved_amount" sum="Approve Amount"/>
+                    <field name="rejected_amount" sum="Rejected Amount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
